@@ -1,15 +1,13 @@
 package main;
 
 import geheim.BotToken;
+import listeners.OnJoinServer;
+import listeners.OnServerLeft;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.interactions.commands.OptionType;
-import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import templates.EmbedMessages;
 
 import javax.security.auth.login.LoginException;
 
@@ -26,13 +24,12 @@ public class Start {
     }
 
     public static Start INSTANCE;
-    public static String VERSION_ID = "2.4.2";
+    public static String VERSION_ID = "1.0.0";
 
     private JDA api;
     private CommandManager cmdMan;
     private SlashManager slashMan;
     private ButtonManager buttonMan;
-    private EmbedMessages embedMessages;
 
     public Start() throws LoginException, IllegalArgumentException {
 
@@ -50,13 +47,14 @@ public class Start {
         this.cmdMan = new CommandManager();
         this.slashMan = new SlashManager();
         this.buttonMan = new ButtonManager();
-        this.embedMessages = new EmbedMessages();
 
         api.setAutoReconnect(true);
     }
 
     private void listeners() {
-        api.addEventListener(new SlashCommand());
+        api.addEventListener(new OnJoinServer());
+        api.addEventListener(new OnServerLeft());
+
     }
 
     private void commands() {
@@ -65,10 +63,6 @@ public class Start {
 
     public JDA getApi() {
         return api;
-    }
-
-    public EmbedMessages getEmbedMessages() {
-        return embedMessages;
     }
 
     public CommandManager getCmdMan() {

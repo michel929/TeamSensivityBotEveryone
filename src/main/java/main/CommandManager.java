@@ -1,13 +1,10 @@
 package main;
 
-import commands.*;
-import commands.forum.Maintenance;
 import commands.types.PrivateCommand;
 import commands.types.ServerCommand;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.entities.channel.concrete.PrivateChannel;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
-import org.json.simple.parser.ParseException;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -20,12 +17,6 @@ public class CommandManager {
         this.commandsp = new ConcurrentHashMap<>();
 
         commandsp.put("update", new UpdateCommand());
-        commands.put("dbdp", new DBDProfile());
-        commands.put("wartung", new Maintenance());
-        commands.put("reset", new ResetCommand());
-        commands.put("clear", new ClearCommand());
-        commands.put("points", new PointsCommand());
-        commands.put("emoji", new GetEmojis());
     }
 
     public boolean perform(String command, Member m, TextChannel channel, Message message){

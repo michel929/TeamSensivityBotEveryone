@@ -7,7 +7,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Connect {
-    static String url = "jdbc:mysql://192.168.178.200:3306";
+    static String url = "jdbc:mysql://192.168.178.200:3333";
+    static String url2 = "jdbc:mysql://192.168.178.200:3306";
     static String user = "discord";
     static String pass = Passwort.getDataPasswort();
 
@@ -26,6 +27,18 @@ public class Connect {
         url = url + "/" + id;
         try {
             Connection con = DriverManager.getConnection(url, user, pass);
+
+            return con;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public static Connection getConnection3(){
+        url2 = url2 + "/TeamSensivity";
+        try {
+            Connection con = DriverManager.getConnection(url2, user, pass);
 
             return con;
         } catch (SQLException e) {
